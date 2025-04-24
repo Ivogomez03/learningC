@@ -1,5 +1,5 @@
 /********************************************************************
- * Ejercicio 7-2                     							  *
+ * Ejercicio 7-3                     							  *
  *                                                                *
  * Autor: Ivo Gómez Enrico										*
  * github: https://www.github.com/Ivogomez03                       *                         		
@@ -55,7 +55,7 @@ int main(){
 				tiempo = (tamaño / 8) / 960;
 			}
 			if(unidad == 2){
-				tiempo = tamaño;
+				tiempo = tamaño/960;
 			}
 			if(unidad == 3){
 				tiempo = (tamaño * 1024) / 960;
@@ -87,12 +87,12 @@ int main(){
 			else if(tiempo < tiempoUnidades[2]){
 					
 				int minutos = (tiempo % 3600)/60;
-				int segundos = tiempo - (tiempo/60)*60;
+				int segundos = tiempo % 60;
 				printf("%d\n",segundos);
 				tiempo /= 3600;
 
 				printf("El archivo demora %d",tiempo);
-				printf("horas, %d minutos y %d segundos en ser enviado.\n", minutos,segundos);
+				printf(" horas, %d minutos y %d segundos en ser enviado.\n", minutos,segundos);
 
 			}
 			else if(tiempo < tiempoUnidades[3]){

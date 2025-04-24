@@ -13,48 +13,65 @@
  *******************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-int dia1;
-int mes1;
-int año1;
+int dia1; /* dia de la fecha 1 */
+int mes1; /* mes de la fecha 1 */
+int año1; /* año de la fecha 1 */
+int diasDesdeOrigen1; /* cantidad de dias de la fecha1 desde el origen */
 
-int dia2;
-int mes2;
-int año2;
+int dia2; /* dia de la fecha 2 */
+int mes2;/* mes de la fecha 2 */
+int año2; /* año de la fecha 2 */
+int diasDesdeOrigen2; /* cantidad de dias de la fecha2 desde el origen */
 
-int dias;
+
+int dias; /* cantidad de dias entre las 2 fechas */
 
 char linea[80]; /* input buffer */
 
 int main(){
 	
-	
-	while(1){
+	bool seguir = 1;
+
+	while(seguir){
+		
 		printf("Ingresa la fecha 1 con el siguiente formato DD/MM/AAAA: ");
 		fgets(linea,sizeof(linea),stdin);
 		sscanf(linea, "%d/%d/%d",&dia1,&mes1,&año1);
+
+		/* valido dia, mes y año */
+
+		if( dia1 < 1 || dia1 > 31 || mes1 > 12 || mes1 < 1 || año1 < 1){
+			printf("La fecha 1 es inválida, prueba otra vez.\n");
+			continue;
+		}
 
 		printf("Ingresa la fecha 2 con el siguiente formato DD/MM/AAAA: ");
 		fgets(linea,sizeof(linea),stdin);
 		sscanf(linea, "%d/%d/%d",&dia2,&mes2,&año2);
 
-		if(año1> año2)
-			dias = (año1 - año2)*365 + (mes1*31 - mes2*31) + dia1 -dia2;
-		else if(año1 == año2 && mes2 > mes1 )
-			dias = (mes2 - mes1)*31 + dia2 - dia1;
-		else if(año1 == año2 && mes2 < mes1 )
-			dias = (mes1 - mes2)*31 + dia1 - dia2;
-		else if(año1 == año2 && mes2 == mes1 && dia2 > dia1)
-			dias = dia2 - dia1;
-		else if(año1 == año2 && mes2 == mes1 && dia2 <= dia1)
-			dias = dia1 - dia2;
-		else if(año1 < año2)
-			dias = (año2 - año1)*365 + (mes2*31 - mes1*31) + dia2 -dia1;
+		/* valido dias, mes y año */
 
-		printf("Hay %d dias entre las 2 fechas.\n",dias);
+		if( dia2 < 1 || dia2 > 31 || mes2 > 12 || mes2 < 1 || año2 < 1){
+			printf("La fecha 2 es inválida, prueba otra vez.\n");
+			continue;
+		}
 
+		diasDesdeOrigen1 = año1 * 12 * 31 + (mes1-1)*31 + dia1;
+		diasDesdeOrigen2 = año2 * 12 * 31 + (mes2-1)*31 + dia2;
 
-		
+		if(diasDesdeOrigen1 > diasDesdeOrigen2){
+			printf("Hay %d dias entre las 2 fechas.\n",(diasDesdeOrigen1 - diasDesdeOrigen2));
+		}
+		else{
+			printf("Hay %d dias entre las 2 fechas.\n",(diasDesdeOrigen2 - diasDesdeOrigen1));
+		}
+
+		printf("Si desea salir ingrese 0, sino 1: ");
+
+		fgets(linea,sizeof(linea),stdin);
+		sscanf(linea, "%d", &seguir);
 
 
 	}
